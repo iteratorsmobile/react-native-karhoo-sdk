@@ -14,7 +14,7 @@ class KarhooSdk: NSObject {
             .initialisePaymentSDK(paymentSDKTokenPayload: PaymentSDKTokenPayload(organisationId: organisationId, currency: paymentData["currency"] as! String))
             .execute { result in
                 switch result {
-                    case .success(let sdk):
+                    case .success(let sdk, _):
                         let amountString = paymentData["amount"] as! String
                         let amountDecimal = Decimal(string: amountString)
                         
@@ -60,7 +60,7 @@ class KarhooSdk: NSObject {
                         }
                         let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
                         rootViewController?.present(dropIn!, animated: true, completion: nil)
-                    case .failure(let error):
+                    case .failure(let error, _):
                         if let unwrappedError = error {
                             print("KarhooSdk ERROR: \(unwrappedError.code) \(unwrappedError.message)")
                         } else {
@@ -96,14 +96,14 @@ class KarhooSdk: NSObject {
             .book(tripBooking: tripBooking)
             .execute { result in
                 switch result {
-                    case .success(let trip):
+                    case .success(let trip, _):
                         print("KarhooSdk SUCCESS: \(trip)")
                         let resultDict: NSDictionary = [
                             "tripId": trip.tripId,
                             "followCode": trip.followCode
                         ]
                         resolve(resultDict)
-                    case .failure(let error):
+                    case .failure(let error, _):
                         if let unwrappedError = error {
                             print("KarhooSdk ERROR: \(unwrappedError.code) \(unwrappedError.message)")
                         } else {
@@ -120,7 +120,7 @@ class KarhooSdk: NSObject {
             .cancellationFee(identifier: followCode as String)
             .execute { result in
                 switch result {
-                    case .success(let bookingFee):
+                    case .success(let bookingFee, _):
                         print("KarhooSdk SUCCESS: \(bookingFee)")
                         let resultDict: NSDictionary = [
                            "cancellationFee": bookingFee.cancellationFee,
@@ -131,7 +131,7 @@ class KarhooSdk: NSObject {
                            ]
                        ]
                        resolve(resultDict)
-                    case .failure(let error):
+                    case .failure(let error, _):
                         if let unwrappedError = error {
                             print("KarhooSdk ERROR: \(unwrappedError.code) \(unwrappedError.message)")
                         } else {
@@ -155,7 +155,7 @@ class KarhooSdk: NSObject {
                             "tripCancelled": true,
                         ]
                         resolve(resultDict)
-                    case .failure(let error):
+                    case .failure(let error, _):
                         if let unwrappedError = error {
                             print("KarhooSdk ERROR: \(unwrappedError.code) \(unwrappedError.message)")
                         } else {
