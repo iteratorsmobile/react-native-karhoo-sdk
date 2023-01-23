@@ -95,6 +95,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.braintreepayments.api:drop-in:5.+'
     implementation 'com.github.karhoo:karhoo-android-sdk:1.4.0'
+    implementation 'org.jfrog.cardinalcommerce.gradle:cardinalmobilesdk:2.2.7-2'
 }
 
 def configureReactNativePom(def pom) {
